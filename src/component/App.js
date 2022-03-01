@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 const Store = require('electron-store');
-import './style/flexlayout.css'
+import '../style/flexlayout.css'
 import * as FlexLayout from "flexlayout-react";
 
 const store = new Store();

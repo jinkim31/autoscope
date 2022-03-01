@@ -1,3 +1,4 @@
+//Main Process
 const { app, BrowserWindow } = require('electron')
 const Store = require('electron-store');
 
