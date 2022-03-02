@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 const Store = require('electron-store');
 import '../style/flexlayout.css'
 import * as FlexLayout from "flexlayout-react";
-
+import TestComponent from './TestComponent'
 const store = new Store();
 
 store.set('unicorn', '🦄');
@@ -44,19 +44,13 @@ var json = {
                     {
                         type: "tab",
                         name: "Two",
-                        component: "text",
+                        component: "test",
                     }
                 ]
             }
         ]
     }
 };
-
-SerialPort.list().then(function(ports){
-    ports.forEach(function(port){
-        console.log("Port: ", port);
-    })
-});
 
 export default class App extends Component {
     constructor(props) {
@@ -68,6 +62,9 @@ export default class App extends Component {
         var component = node.getComponent();
         if (component === "text") {
             return (<div className="panel">Panel {node.getName()}</div>);
+        }
+        if (component === "test") {
+            return (<TestComponent></TestComponent>);
         }
     }
 

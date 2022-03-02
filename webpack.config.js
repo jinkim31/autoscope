@@ -1,8 +1,10 @@
+const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
     target: 'electron-renderer',
+    watch: true,
     externals: [nodeExternals()],
     node: {
         __dirname: false,
@@ -19,6 +21,11 @@ module.exports = {
                 }
             },
             {
+                test: /\.tsx?$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
                 test: /\.html$/,
                 use: {
                     loader: "html-loader",
@@ -30,6 +37,9 @@ module.exports = {
                 use: ['style-loader', 'css-loader']
             }
         ]
+    },
+    resolve: {
+        extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
         new HtmlWebPackPlugin({
