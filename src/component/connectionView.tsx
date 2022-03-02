@@ -1,8 +1,6 @@
 import React, {Fragment, useEffect, useRef, useState} from "react";
-import Store from "electron-store";
 import {openStateChanged} from "../store/connectionSlice";
 import {useAppDispatch, useAppSelector} from "../store/hooks";
-import {Doughnut} from "react-chartjs-2";
 import {Bar} from "react-chartjs-2";
 import { Chart, registerables } from 'chart.js'
 
