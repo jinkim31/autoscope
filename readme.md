@@ -1,4 +1,4 @@
-#Electron Boilerplate
+# Electron Boilerplate
 Boilerplate for electron apps
 
 - electron
