@@ -10,6 +10,7 @@ console.log(store.get('unicorn'));
 
 import {SerialPort} from 'serialport'
 import {IJsonModel} from "flexlayout-react";
+import ConnectionView from "./connectionView";
 SerialPort.list().then(function(ports){
     ports.forEach(function(port){
         console.log("Port: ", port);
@@ -73,7 +74,7 @@ export default class App extends Component {
             return (<div className="panel">Panel {node.getName()}</div>);
         }
         if (component === "test") {
-            return (<TestComponent></TestComponent>);
+            return (<ConnectionView></ConnectionView>);
         }
     }
 
