@@ -1,11 +1,11 @@
 import{configureStore} from "@reduxjs/toolkit";
-import connectionReducer from './connectionSlice'
+import counterReducer from './counterSlice'
 
 export const store = configureStore({
     reducer:{
-        connection: connectionReducer
+        counter: counterReducer
     }
 })
 
 export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = typeof store.dispatch

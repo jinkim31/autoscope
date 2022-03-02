@@ -2,20 +2,15 @@ import React, {Component} from 'react'
 const Store = require('electron-store');
 import '../style/flexlayout.css'
 import * as FlexLayout from "flexlayout-react";
-import TestComponent from './TestComponent'
-const store = new Store();
-
-store.set('unicorn', '🦄');
-console.log(store.get('unicorn'));
-
 import {SerialPort} from 'serialport'
 import {IJsonModel} from "flexlayout-react";
 import ConnectionView from "./connectionView";
-SerialPort.list().then(function(ports){
-    ports.forEach(function(port){
-        console.log("Port: ", port);
-    })
-});
+const ExcelJS = require('exceljs');
+
+
+const store = new Store();
+store.set('unicorn', '🦄');
+console.log(store.get('unicorn'));
 
 interface Props{
 
@@ -63,13 +58,12 @@ export default class App extends Component {
         }
     };
 
-
     constructor(props : Props) {
         super(props);
     }
 
     factory(node : any) {
-        var component = node.getComponent();
+        const component = node.getComponent();
         if (component === "text") {
             return (<div className="panel">Panel {node.getName()}</div>);
         }
