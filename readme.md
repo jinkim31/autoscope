@@ -11,3 +11,4 @@ Boilerplate for electron apps
 - electron-store
 - serialport
 - chartjs
+- exceljs
