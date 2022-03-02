@@ -4,13 +4,14 @@
   "description": "",
   "main": "src/main.ts",
   "scripts": {
-    "start": "concurrently \"webpack --mode development\" \"electron .\""
+    "start": "concurrently \"webpack --mode development\" \"electron .\"",
+    "dist:darwin_arm64": "npx electron-packager ./ dist --platform=darwin --arch=arm64 --overwrite"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.0",
-    "dotenv": "^16.0.0",
+    "chart.js": "^3.7.1",
     "electron-store": "^8.0.1",
     "flexlayout-react": "^0.6.5",
     "react": "^17.0.2",
@@ -27,20 +28,17 @@
     "@babel/preset-react": "^7.16.7",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.12",
-    "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.2.3",
     "concurrently": "^7.0.0",
     "css-loader": "^6.6.0",
-    "dotenv-webpack": "^7.1.0",
     "electron": "^17.1.0",
-    "electron-reload": "^2.0.0-alpha.1",
+    "electron-packager": "^15.4.0",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.7",
     "typescript": "^4.6.2",
     "webpack": "^5.69.1",
-    "webpack-cli": "^4.9.2",
-    "webpack-electron-reload": "^1.0.1"
+    "webpack-cli": "^4.9.2"
   }
 }
