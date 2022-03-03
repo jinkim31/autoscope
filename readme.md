@@ -12,3 +12,4 @@ Boilerplate for electron apps
 - serialport
 - chartjs
 - exceljs
+- fontawesome
