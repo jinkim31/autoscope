@@ -1,9 +1,11 @@
 import{configureStore} from "@reduxjs/toolkit";
-import counterReducer from './counterSlice'
+import commReducer from './commSlice'
+import logReducer, {logSlice} from './logSlice'
 
 export const store = configureStore({
     reducer:{
-        counter: counterReducer
+        comm: commReducer,
+        log: logReducer
     }
 })
 

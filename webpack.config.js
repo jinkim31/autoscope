@@ -4,7 +4,6 @@ const nodeExternals = require("webpack-node-externals");
 
 module.exports = {
     target: 'electron-renderer',
-    watch: true,
     externals: [nodeExternals()],
     node: {
         __dirname: false,

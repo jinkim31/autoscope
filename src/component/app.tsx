@@ -4,9 +4,9 @@ import '../style/flexlayout.css'
 import * as FlexLayout from "flexlayout-react";
 import {SerialPort} from 'serialport'
 import {IJsonModel} from "flexlayout-react";
-import ConnectionView from "./connectionView";
+import ConnectionView from "./connectionView/connectionView";
 const ExcelJS = require('exceljs');
-
+import Terminal from './terminal/terminal'
 
 const store = new Store();
 store.set('unicorn', '🦄');
@@ -39,7 +39,7 @@ export default class App extends Component {
                         {
                             type: "tab",
                             name: "One",
-                            component: "text",
+                            component: "Terminal",
                         }
                     ]
                 },
@@ -50,7 +50,7 @@ export default class App extends Component {
                         {
                             type: "tab",
                             name: "Two",
-                            component: "test",
+                            component: "ConnectionView",
                         }
                     ]
                 }
@@ -64,11 +64,11 @@ export default class App extends Component {
 
     factory(node : any) {
         const component = node.getComponent();
-        if (component === "text") {
-            return (<div className="panel">Panel {node.getName()}</div>);
+        if (component === "Terminal") {
+            return (<Terminal/>);
         }
-        if (component === "test") {
-            return (<ConnectionView></ConnectionView>);
+        if (component === "ConnectionView") {
+            return (<ConnectionView/>);
         }
     }
 

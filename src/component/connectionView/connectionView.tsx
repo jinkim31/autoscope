@@ -3,45 +3,28 @@ import {Bar} from "react-chartjs-2";
 import { Chart, registerables } from 'chart.js'
 import {SerialPort} from "serialport";
 import {useDispatch, useSelector} from "react-redux";
-import {counterSlice, decrement, increment} from "../store/counterSlice";
-import {RootState} from "../store/store";
-import CommManager from '../comm/commManager'
+import {RootState} from "../../store/store";
+import {refreshPorts} from "../../store/commSlice";
+import {appendTerminalLog} from "../../store/logSlice";
 
 Chart.register(...registerables)
 
 export default function ConnectionView() {
     const [portList, setPortList] = useState([])
     const [selectedPort, setSelectedPort] = useState('')
-    const commManager:React.MutableRefObject<CommManager> = useRef(new CommManager())
     const dispatch = useDispatch()
 
-    function refreshPort(){
-        SerialPort.list().then(function(ports){
-            let newPortList:string[] = []
-            ports.forEach(function(port){
-                newPortList = [...newPortList, port.path]
-                setSelectedPort(port.path)
-            })
-            setPortList(newPortList)
-        });
-    }
-
-    function openPort()
-    {
-        console.log('opening port:'+selectedPort)
-        commManager.current.open(selectedPort, 9600)
-    }
+    useEffect(()=>{
+        dispatch(refreshPorts())
+    }, [])
     return (
         <Fragment>
             <h1>connection</h1>
-            <button onClick={refreshPort}>refresh</button>
+            <button onClick={()=>dispatch(refreshPorts())}>refresh</button>
+            <button onClick={()=>dispatch(appendTerminalLog('hello'))}>append</button>
             {/*<button onClick={()=>dispatch(openStateChanged(!isOpen))}>connect!</button>*/}
-            <button onClick={openPort}>open</button>
-            <button onClick={()=>dispatch(increment())}>+</button>
-            <button onClick={()=>dispatch(decrement())}>-</button>
-            <label>{useSelector((state: RootState) => state.counter.value)}</label>
             <select onChange={(e)=>{setSelectedPort(e.target.value)}} value={selectedPort}>
-                {portList.map((port, i) => (
+                {useSelector((state: RootState) => state.comm.ports).map((port, i) => (
                     <option key={i} value={port}>{port}</option>
                 ))}
             </select>
