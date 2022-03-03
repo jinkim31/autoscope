@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 const Store = require('electron-store');
 import '../style/flexlayout.css'
 import * as FlexLayout from "flexlayout-react";
-import {SerialPort} from 'serialport'
 import {IJsonModel} from "flexlayout-react";
 import ConnectionView from "./connectionView/connectionView";
 const ExcelJS = require('exceljs');
