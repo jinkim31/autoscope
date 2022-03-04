@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 const Store = require('electron-store');
-import '../style/flexlayout.css'
+import '../style/flexlayout.scss'
 import * as FlexLayout from "flexlayout-react";
 import {IJsonModel} from "flexlayout-react";
 import ConnectionView from "./connectionView/connectionView";

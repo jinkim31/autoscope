@@ -6,6 +6,7 @@ Boilerplate for electron apps
 - typescript
 - react
 - redux-toolkit
+- sass
 - electron-packager
 - flexlayout
 - electron-store

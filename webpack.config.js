@@ -1,6 +1,8 @@
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const nodeExternals = require("webpack-node-externals");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const sass = require("sass");
 
 module.exports = {
     target: 'electron-renderer',
@@ -34,6 +36,21 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.scss?$/,
+                exclude: /node_module/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            implementation: sass, //dart-sass 적용
+                            sassOptions: {},
+                        },
+                    },
+                ],
             }
         ]
     },
@@ -48,7 +65,8 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: "./public/popout.html",
             filename: "./popout.html"
-        })
+        }),
+        new MiniCssExtractPlugin({filename: '[name].css'})
     ],
     output: {
         path: __dirname + "/build"
