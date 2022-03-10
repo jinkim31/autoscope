@@ -5,7 +5,6 @@ import {log10} from "chart.js/helpers";
 import {act} from "react-dom/test-utils";
 import commManager from "../model/comm/commManager";
 
-commManager.dh232
 export interface CommState {
     ports: string[],
 }
@@ -27,9 +26,7 @@ export const commSlice = createSlice({
     initialState,
     reducers: {
         addDh232Callback: (state) => {
-            commManager.dh232.addReadCallback(abstraction => {
-                console.log(abstraction.analogIn[0])
-            })
+
         },
     },
     extraReducers: builder => {

@@ -1,3 +1,4 @@
+import React from "react";
 import Plugin from "./plugin";
 
 interface Abstraction{
@@ -16,17 +17,21 @@ const initialAbstraction : Abstraction = {
     digitalOut: []
 }
 
-class Dh232 extends Plugin<Abstraction>{
+class Dh485 extends Plugin<Abstraction>{
     constructor() {
-        super('dh232', initialAbstraction);
-        setInterval(()=>{this.abstraction.analogIn.push(1)}, 1000)
+        super('dh485', initialAbstraction);
+        setInterval(()=>{
+            this.abstraction.analogIn.push(1)
+            this.processBytes()
+        }, 1000)
     }
 
-    protected ReadoutMaker(): any {
+    public ReadoutMaker(): any {
+        return (<h2>dh485 ReadoutMaker</h2>)
     }
 
     protected processBytes(): any {
     }
 }
 
-export {Abstraction, Dh232}
+export {Abstraction, Dh485}

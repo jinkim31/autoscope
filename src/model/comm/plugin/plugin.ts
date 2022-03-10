@@ -8,7 +8,7 @@ export default abstract class Plugin<T>{
         this.abstraction = initialAbstraction
     }
 
-    protected abstract ReadoutMaker():any
+    public abstract ReadoutMaker():any
 
     protected abstract processBytes():any
 

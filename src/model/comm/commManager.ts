@@ -1,9 +1,13 @@
 import {SerialPort} from "serialport";
 import {Dh232} from "./plugin/dh232";
 import Plugin from "./plugin/plugin";
+import {Dh485} from "./plugin/dh485";
 
-const dh232 = new Dh232()
+const plugins:Plugin<any>[] = [new Dh232(), new Dh485()]
 
-const plugins:Plugin<any>[] = [new Dh232()]
+function findPlugin(name:string){
+    for(let i=0; i<plugins.length; i++){if(plugins[i].getName() === name){return plugins[i]}}
+    console.error('plugin '+name+' not found!')
+}
 
-export default {dh232}
+export default {findPlugin, plugins}
