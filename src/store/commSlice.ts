@@ -1,11 +1,11 @@
 import {createAsyncThunk, createSlice, Draft, isFulfilled, PayloadAction} from '@reduxjs/toolkit'
-import CommManager from "../comm/commManager";
+import CommManager from "../model/comm/commManager";
 import {SerialPort} from "serialport";
 import {log10} from "chart.js/helpers";
 import {act} from "react-dom/test-utils";
+import commManager from "../model/comm/commManager";
 
-const commManager = new CommManager()
-
+commManager.dh232
 export interface CommState {
     ports: string[],
 }
@@ -26,8 +26,10 @@ export const commSlice = createSlice({
     name: 'comm',
     initialState,
     reducers: {
-        newReducer: (state) => {
-
+        addDh232Callback: (state) => {
+            commManager.dh232.addReadCallback(abstraction => {
+                console.log(abstraction.analogIn[0])
+            })
         },
     },
     extraReducers: builder => {
@@ -38,5 +40,5 @@ export const commSlice = createSlice({
     }
 })
 
-export const {newReducer} = commSlice.actions
+export const {addDh232Callback} = commSlice.actions
 export default commSlice.reducer

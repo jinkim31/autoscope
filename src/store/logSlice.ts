@@ -1,16 +1,18 @@
 import {createAsyncThunk, createSlice, Draft, isFulfilled, PayloadAction} from '@reduxjs/toolkit'
-import CommManager from "../comm/commManager";
+import CommManager from "../model/comm/commManager";
 import {SerialPort} from "serialport";
 import {log10} from "chart.js/helpers";
 import {act} from "react-dom/test-utils";
+import Readout from '../model/readout'
 
 export interface LogState {
     terminalLog: string,
-
+    readouts: Readout[]
 }
 
 const initialState: LogState = {
-    terminalLog : 'initial str'
+    terminalLog : 'initial str',
+    readouts : []
 }
 
 export const logSlice = createSlice({
