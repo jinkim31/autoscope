@@ -1,5 +1,7 @@
 import React from "react";
 import Plugin from "./plugin";
+import {useDispatch} from "react-redux";
+import {addReadout, updateReadout} from "../../../store/readoutSlice";
 
 interface Abstraction{
     name: string,
@@ -19,15 +21,37 @@ const initialAbstraction : Abstraction = {
 
 class Dh232 extends Plugin<Abstraction>{
     constructor() {
+        console.log('dh212 constr')
         super('dh232', initialAbstraction);
+        this.abstraction.analogIn.push(1)
         setInterval(()=>{
-            this.abstraction.analogIn.push(1)
-            this.processBytes()
+            this.abstraction.analogIn[0]++
+            this.invokeCallbacks()
         }, 1000)
     }
 
     public ReadoutMaker(): any {
-        return (<h2>dh232 ReadoutMaker</h2>)
+
+        const dispatch = useDispatch()
+
+        return (
+            <div>
+                <h2>dh232 ReadoutMaker</h2>
+                <select>
+                    <option>Analog</option>
+                    <option>Digital</option>
+                </select>
+                <textarea></textarea>
+                <button onClick={()=>{
+                    const id = Date.now()
+                    this.addReadCallback(abstraction => {
+                        dispatch(updateReadout({id:id, value:abstraction.analogIn[0]}))
+                    })
+
+                    dispatch(addReadout(id))
+                }}>add</button>
+            </div>
+        )
     }
 
     protected processBytes(): any {

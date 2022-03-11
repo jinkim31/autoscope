@@ -1,11 +1,13 @@
 import{configureStore} from "@reduxjs/toolkit";
 import commReducer from './commSlice'
 import logReducer, {logSlice} from './logSlice'
+import readoutReducer from "./readoutSlice";
 
 export const store = configureStore({
     reducer:{
         comm: commReducer,
-        log: logReducer
+        log: logReducer,
+        readout: readoutReducer
     }
 })
 

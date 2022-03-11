@@ -1,6 +1,5 @@
-import {SerialPort} from "serialport";
-import {Dh232} from "./plugin/dh232";
 import Plugin from "./plugin/plugin";
+import {Dh232} from "./plugin/dh232";
 import {Dh485} from "./plugin/dh485";
 
 const plugins:Plugin<any>[] = [new Dh232(), new Dh485()]

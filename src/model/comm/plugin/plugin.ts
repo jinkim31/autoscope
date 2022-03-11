@@ -1,11 +1,16 @@
 export default abstract class Plugin<T>{
-    private readCallbacks: ((name:T)=>void)[]
+    private readCallbacks: {(name:T): void;}[]
     protected abstraction: T
     private name:string;
+
+    static Readout = class<T>{
+
+    }
 
     constructor(name:string, initialAbstraction: T) {
         this.name = name
         this.abstraction = initialAbstraction
+        this.readCallbacks = []
     }
 
     public abstract ReadoutMaker():any

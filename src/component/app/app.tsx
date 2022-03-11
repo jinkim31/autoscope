@@ -116,8 +116,7 @@ export default class App extends Component {
                 <ConnectionView></ConnectionView>
                 <FlexLayout.Layout
                     model={FlexLayout.Model.fromJson(this.layout)}
-                    factory={this.factory.bind(this)}
-                    realtimeResize={true}/>
+                    factory={this.factory.bind(this)}/>
             </div>
         );
     }

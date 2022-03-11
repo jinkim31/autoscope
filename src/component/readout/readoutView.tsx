@@ -13,7 +13,7 @@ const modalStyles = {
         right: 'auto',
         bottom: 'auto',
         marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
+        transform: 'translate(-50%, -50%)'
     },
 };
 
@@ -32,7 +32,7 @@ export default function ReadoutView(){
                 <button onClick={()=>setOpenModal(true)}>+</button>
             </div>
             <div className={'list'}>
-                {/*{useSelector((state: RootState) => state.log.readouts).map((readout, i) => <ReadoutElement key={i} name={readout.name} value={readout.value}/>)}*/}
+                {useSelector((state: RootState) => state.readout.readouts).map((readout, i) => <ReadoutElement key={i} name={readout.name} value={readout.value}/>)}
             </div>
             <div className={'control_bottom'}>
                 <div style={{flexGrow:1}}></div>

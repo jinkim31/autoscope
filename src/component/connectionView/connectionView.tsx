@@ -9,6 +9,7 @@ import {appendTerminalLog} from "../../store/logSlice";
 import './connectionView.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faRotate} from "@fortawesome/free-solid-svg-icons";
+import {refreshPlugin} from "../../store/readoutSlice";
 
 Chart.register(...registerables)
 
@@ -18,8 +19,10 @@ export default function ConnectionView() {
     const dispatch = useDispatch()
 
     useEffect(()=>{
-        dispatch(refreshPorts())
+        console.log('refreshing')
+        dispatch(refreshPlugin())
     }, [])
+
     return (
         <div className={'connection_view'}>
             <button className={'button_icon'} onClick={()=>dispatch(refreshPorts())}><FontAwesomeIcon icon={faRotate} /></button>

@@ -3,16 +3,13 @@ import CommManager from "../model/comm/commManager";
 import {SerialPort} from "serialport";
 import {log10} from "chart.js/helpers";
 import {act} from "react-dom/test-utils";
-import Readout from '../model/readout'
 
 export interface LogState {
     terminalLog: string,
-    readouts: Readout[]
 }
 
 const initialState: LogState = {
     terminalLog : 'initial str',
-    readouts : []
 }
 
 export const logSlice = createSlice({
