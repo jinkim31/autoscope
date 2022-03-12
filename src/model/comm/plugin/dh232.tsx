@@ -21,7 +21,6 @@ const initialAbstraction : Abstraction = {
 
 class Dh232 extends Plugin<Abstraction>{
     constructor() {
-        console.log('dh212 constr')
         super('dh232', initialAbstraction);
         this.abstraction.analogIn.push(1)
         setInterval(()=>{

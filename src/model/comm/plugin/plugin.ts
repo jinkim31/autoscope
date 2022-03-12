@@ -1,5 +1,5 @@
 export default abstract class Plugin<T>{
-    private readCallbacks: {(name:T): void;}[]
+    private readCallbacks: {(abstraction:T): void;}[]
     protected abstraction: T
     private name:string;
 

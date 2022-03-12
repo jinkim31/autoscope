@@ -1,13 +1,13 @@
+
 interface Readout{
     name:string,
     id:number,
     value:any,
     description:string
+    setCallback: {(payload:SetCallbackPayload): void;}[]
 }
 
-const initReadout:Readout = {
-    name: '',
-    id:-1,
-    value:0,
-    description:''
+interface SetCallbackPayload{
+    id:number,
+    value:number
 }

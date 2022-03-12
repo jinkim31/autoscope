@@ -29,8 +29,9 @@ export const readoutSlice = createSlice({
             const newReadout:Readout = {
                 id: action.payload,
                 description:'new readout',
-                value:0,
-                name:'id:' + action.payload.toString()
+                value:false,
+                name:'id:' + action.payload.toString(),
+                setCallback:[]
             }
             state.readouts.push(newReadout)
         },
