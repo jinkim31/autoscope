@@ -7,7 +7,7 @@ export default abstract class Plugin<T>{
 
     }
 
-    constructor(name:string, initialAbstraction: T) {
+    protected constructor(name:string, initialAbstraction: T) {
         this.name = name
         this.abstraction = initialAbstraction
         this.readCallbacks = []

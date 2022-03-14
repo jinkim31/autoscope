@@ -7,15 +7,33 @@
   height: 100%;
 
   .control{
+    display: flex;
     width: 100%;
     height: 24px;
     border-bottom: main.$liner solid 1px;
+    box-sizing: border-box;
+    padding: 0px 0px 0px 4px;
     align-items: center;
   }
 
   .list{
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-sizing: border-box;
     overflow: scroll;
+    background: white;
+
+    .info_text{
+      height: 100%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: main.$icon;
+      white-space:nowrap;
+    }
   }
 
   .control_bottom{

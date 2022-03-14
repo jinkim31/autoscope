@@ -4,11 +4,12 @@ import '../../style/flexlayout.scss'
 import * as FlexLayout from "flexlayout-react";
 import {IJsonModel} from "flexlayout-react";
 import ConnectionView from "../connectionView/connectionView";
-const ExcelJS = require('exceljs');
 import Terminal from '../terminal/terminal'
 import './app.scss'
 import Plot from "../plot/plot";
 import ReadoutView from "../readout/readoutView";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../store/store";
 
 const store = new Store();
 store.set('unicorn', '🦄');
@@ -23,6 +24,7 @@ interface State{
 }
 
 export default class App extends Component {
+
     private layout: IJsonModel = {
         global: {
             tabEnableClose: false,
@@ -90,11 +92,17 @@ export default class App extends Component {
         }
     };
 
-    constructor(props : Props) {
-        super(props);
+    state:State={
+        model:undefined
     }
 
-    factory(node : any) {
+    public constructor(props : Props) {
+        super(props);
+        this.state = {model: FlexLayout.Model.fromJson(this.layout)}
+
+    }
+
+    private factory(node : any) {
         const component = node.getComponent();
         if (component === "Terminal") {
             return (<Terminal/>);
@@ -110,12 +118,16 @@ export default class App extends Component {
         }
     }
 
-    render() {
+    public test(){
+        console.log('app!')
+    }
+
+    public render() {
         return (
             <div className={'app'}>
                 <ConnectionView></ConnectionView>
                 <FlexLayout.Layout
-                    model={FlexLayout.Model.fromJson(this.layout)}
+                    model={this.state.model}
                     factory={this.factory.bind(this)}/>
             </div>
         );

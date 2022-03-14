@@ -4,24 +4,28 @@ import {SerialPort} from "serialport";
 import {log10} from "chart.js/helpers";
 import {act} from "react-dom/test-utils";
 import commManager from "../model/comm/commManager";
+import {IJsonModel, Layout, Actions, DockLocation} from "flexlayout-react";
 
 export interface LayoutStateState {
-    ports: string[],
+    layout:any
 }
 
 const initialState: LayoutStateState = {
-    ports : []
+    layout:undefined
 }
 
 export const commSlice = createSlice({
     name: 'layout',
     initialState,
     reducers: {
-        addDh232Callback: (state) => {
-
+        storeLayout: (state, action) => {
+            state.layout = action.payload
+            action.payload.doAction(Actions.addNode(
+                {type:"tab", component:"grid", name:"a grid", id:"5"},
+                "1", DockLocation.CENTER, 0));
         },
     }
 })
 
-export const {addDh232Callback} = commSlice.actions
+export const {storeLayout} = commSlice.actions
 export default commSlice.reducer

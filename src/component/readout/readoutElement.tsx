@@ -12,8 +12,6 @@ export default function ReadoutElement(props : Props){
             <div className={'indicator_light'}></div>
             <div> {props.name} </div>
             <div> {props.value.toString()} </div>
-            <div style={{'flexGrow':1}}></div>
-            <button className={'button_text'}>log</button>
 
         </div>
     )

@@ -2,6 +2,23 @@ import {createAsyncThunk, createSlice, Draft, isFulfilled, PayloadAction} from '
 import CommManager from "../model/comm/commManager";
 import {act} from "react-dom/test-utils";
 
+interface Readout{
+    name:string,
+    id:number,
+    value:any,
+    description:string
+    setCallback: {(payload:SetCallbackPayload): void;}[]
+}
+
+interface SetCallbackPayload{
+    id:number,
+    value:number
+}
+
+interface Plot{
+
+}
+
 export interface ReadoutState {
     plugins:string[]
     selectedPlugin:string,
@@ -40,7 +57,10 @@ export const readoutSlice = createSlice({
                 (readout)=>readout.id === action.payload.id
             )
             state.readouts[index].value = action.payload.value
-        }
+        },
+        addPlotFromReadout: (state,action)=>{
+
+        },
     }
 })
 
