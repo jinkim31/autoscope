@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import ReadoutElement from "./readoutElement";
 import './readout.scss'
 import {useSelector} from "react-redux";
@@ -21,47 +21,30 @@ const modalStyles = {
     },
 };
 
-interface ReadoutStrings {
-    name:string,
-    description:string,
-    value:string
-    id:string
-}
-
-
-function generateReadoutStrings(){
-    const readouts = useSelector((state: RootState) => state.readout.readouts)
-    const strings={
-        name:'',
-        description:'',
-        value:'',
-        id:'',
-    }
-
-    readouts.forEach(readout=>{
-        strings.name+=readout.name+' '
-        strings.description+=readout.description+' '
-        strings.id+=readout.id.toString()+' '
-        strings.value+=readout.value.toString()+' '
-    })
-
-}
-
 export default function ReadoutView(){
 
     const [openModal, setOpenModal] = useState(false)
-    const [selectedIndexes, setSelectedIndexes] = useState(new Set())
-
+    const [selectedIndexes, setSelectedIndexes] = useState([])
+    const [displayIndex, setDisplayIndex] = useState(0)
     const readouts = useSelector((state: RootState) => state.readout.readouts)
+
+    function onSelectionChanged(checkedIndexes:number[]) {
+        console.log(checkedIndexes)
+        setSelectedIndexes(checkedIndexes)
+        if(checkedIndexes.length==1){
+            setDisplayIndex(checkedIndexes[0])
+        }
+    }
+
     return(
         <div className={'readout'}>
             <ReactModal style={modalStyles} isOpen={openModal}>
-                <ReadoutMaker></ReadoutMaker>
+                <ReadoutMaker/>
                 <button onClick={()=>setOpenModal(false)}>cancel</button>
             </ReactModal>
             <div className={'control'}>
                 <label>Readouts</label>
-                <div style={{flexGrow:1}}></div>
+                <div style={{flexGrow: 1}}/>
                 <button className={'button_icon'} onClick={()=>setOpenModal(true)}>
                     <FontAwesomeIcon icon={faPlus}/>
                 </button>
@@ -69,25 +52,30 @@ export default function ReadoutView(){
             <div className={'list'}>
                 {
                     readouts.length>0
-                    ? <SelectList onCheckChange={checkedIndexes => {
-                        console.log(checkedIndexes)
-                        setSelectedIndexes(checkedIndexes)
+                    ? <SelectList onCheckChange={(indexes)=>{
+                        onSelectionChanged(indexes)
                         }}>
                             {readouts.map((readout, i) => <ReadoutElement key={i} name={readout.name} value={readout.value}/>)}
                     </SelectList>
                     : <div className={'info_text'}>Click&#160; <FontAwesomeIcon icon={faPlus}/> &#160;to add readouts. </div>}
             </div>
             {
-                selectedIndexes.size>0 &&
+                selectedIndexes.length>0 &&
                 <div className={'control_bottom'}>
-                    <label>Name</label>
-                    <label>Description</label>
-                    <div className={'description_box'}>
-                        <label>ID</label>
-                        <label>id</label>
-                        <label>Value</label>
-                        <label>value</label>
-                    </div>
+                    {
+                        selectedIndexes.length==1 &&
+                        <Fragment>
+                            <label>{readouts[displayIndex].name}</label>
+                            <label>{readouts[displayIndex].description}</label>
+                            <div className={'description_box'}>
+                                <label>ID</label>
+                                <label>{readouts[displayIndex].id}</label>
+                                <label>Value</label>
+                                <label>{readouts[displayIndex].value}</label>
+                            </div>
+                        </Fragment>
+                    }
+
                     <button className={'button_text'} style={{width:'100%'}}>plot</button>
                     <button className={'button_text'} style={{width:'100%'}}>log</button>
                     <button className={'button_text'} style={{width:'100%', color:'red'}}>remove</button>

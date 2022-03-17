@@ -7,7 +7,7 @@ import {log10} from "chart.js/helpers";
 
 interface Props{
     children: any
-    onCheckChange: {(checkedIndexes:Set<any>): void;}
+    onCheckChange: {(checkedIndexes:number[]): void;}
 }
 
 interface ElementProps{
@@ -43,7 +43,7 @@ export default function SelectList(props:Props)
                     else newIndexes.delete(i)
                     setIndexes(newIndexes)
 
-                    props.onCheckChange(newIndexes)
+                    props.onCheckChange(Array.from(newIndexes))
                 }} children={child}/>
             )}
         </div>

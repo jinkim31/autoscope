@@ -47,7 +47,7 @@ export const readoutSlice = createSlice({
                 id: action.payload,
                 description:'new readout',
                 value:false,
-                name:'id:' + action.payload.toString(),
+                name:'new readout name',
                 setCallback:[]
             }
             state.readouts.push(newReadout)
@@ -56,6 +56,9 @@ export const readoutSlice = createSlice({
             const index = state.readouts.findIndex(
                 (readout)=>readout.id === action.payload.id
             )
+            if(index == -1){
+                console.warn('readout with id ' + action.payload.id.toString() + 'seems to be removed.')
+            }
             state.readouts[index].value = action.payload.value
         },
         addPlotFromReadout: (state,action)=>{
