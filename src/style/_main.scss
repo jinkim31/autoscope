@@ -1,5 +1,5 @@
 $background: #f2f2f2;
-$liner : #d1d1d1;
+$liner : #e0e0e0;
 $select : #bdbdbd;
 $icon : #575757;
 $focus : #bcd4ef;
@@ -32,6 +32,15 @@ body {
   border: $liner solid 1px;
   border-radius: 4px;
 }
+
+.button_text:hover{
+  background: #f3f3f3;
+}
+
+.button_text:active{
+  background: $liner;
+}
+
 
 select{
   border: $liner solid 1px;

@@ -21,9 +21,36 @@ const modalStyles = {
     },
 };
 
+interface ReadoutStrings {
+    name:string,
+    description:string,
+    value:string
+    id:string
+}
+
+
+function generateReadoutStrings(){
+    const readouts = useSelector((state: RootState) => state.readout.readouts)
+    const strings={
+        name:'',
+        description:'',
+        value:'',
+        id:'',
+    }
+
+    readouts.forEach(readout=>{
+        strings.name+=readout.name+' '
+        strings.description+=readout.description+' '
+        strings.id+=readout.id.toString()+' '
+        strings.value+=readout.value.toString()+' '
+    })
+
+}
+
 export default function ReadoutView(){
 
     const [openModal, setOpenModal] = useState(false)
+    const [selectedIndexes, setSelectedIndexes] = useState(new Set())
 
     const readouts = useSelector((state: RootState) => state.readout.readouts)
     return(
@@ -43,14 +70,29 @@ export default function ReadoutView(){
                 {
                     readouts.length>0
                     ? <SelectList onCheckChange={checkedIndexes => {
-                        console.log(checkedIndexes)}}>{readouts.map((readout, i) => <ReadoutElement key={i} name={readout.name} value={readout.value}/>)}</SelectList>
+                        console.log(checkedIndexes)
+                        setSelectedIndexes(checkedIndexes)
+                        }}>
+                            {readouts.map((readout, i) => <ReadoutElement key={i} name={readout.name} value={readout.value}/>)}
+                    </SelectList>
                     : <div className={'info_text'}>Click&#160; <FontAwesomeIcon icon={faPlus}/> &#160;to add readouts. </div>}
             </div>
-            <div className={'control_bottom'}>
-                <div style={{flexGrow:1}}></div>
-                <button className={'button_text'}>plot</button>
-                <button className={'button_text'}>log</button>
-            </div>
+            {
+                selectedIndexes.size>0 &&
+                <div className={'control_bottom'}>
+                    <label>Name</label>
+                    <label>Description</label>
+                    <div className={'description_box'}>
+                        <label>ID</label>
+                        <label>id</label>
+                        <label>Value</label>
+                        <label>value</label>
+                    </div>
+                    <button className={'button_text'} style={{width:'100%'}}>plot</button>
+                    <button className={'button_text'} style={{width:'100%'}}>log</button>
+                    <button className={'button_text'} style={{width:'100%', color:'red'}}>remove</button>
+                </div>
+            }
         </div>
     )
 }

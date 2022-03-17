@@ -3,10 +3,6 @@ export default abstract class Plugin<T>{
     protected abstraction: T
     private name:string;
 
-    static Readout = class<T>{
-
-    }
-
     protected constructor(name:string, initialAbstraction: T) {
         this.name = name
         this.abstraction = initialAbstraction
