@@ -22,13 +22,13 @@ interface Plot{
 export interface ReadoutState {
     plugins:string[]
     selectedPlugin:string,
-    readouts:Readout[]
+    readouts: { [id: number]: Readout; }
 }
 
 const initialState: ReadoutState = {
     plugins: [],
     selectedPlugin:CommManager.plugins[0].getName(),
-    readouts:[]
+    readouts:{}
 }
 
 export const readoutSlice = createSlice({
@@ -50,16 +50,10 @@ export const readoutSlice = createSlice({
                 name:'new readout name',
                 setCallback:[]
             }
-            state.readouts.push(newReadout)
+            state.readouts[action.payload]=newReadout
         },
         updateReadout: (state,action)=>{
-            const index = state.readouts.findIndex(
-                (readout)=>readout.id === action.payload.id
-            )
-            if(index == -1){
-                console.warn('readout with id ' + action.payload.id.toString() + 'seems to be removed.')
-            }
-            state.readouts[index].value = action.payload.value
+            state.readouts[action.payload.id].value = action.payload.value
         },
     }
 })

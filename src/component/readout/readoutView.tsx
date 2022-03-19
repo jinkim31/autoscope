@@ -36,7 +36,7 @@ export default function ReadoutView(){
         console.log(checkedIndexes)
         setSelectedIndexes(checkedIndexes)
         if(checkedIndexes.length==1){
-            setDisplayIndex(checkedIndexes[0])
+            setDisplayIndex(+Object.keys(readouts)[checkedIndexes[0]])
         }
     }
 
@@ -55,11 +55,11 @@ export default function ReadoutView(){
             </div>
             <div className={'list'}>
                 {
-                    readouts.length>0
+                    Object.keys(readouts).length>0
                     ? <SelectList onCheckChange={(indexes)=>{
                         onSelectionChanged(indexes)
                         }}>
-                            {readouts.map((readout, i) => <ReadoutElement key={i} name={readout.name} value={readout.value}/>)}
+                            {Object.entries(readouts).map( ([key, readout]) => <ReadoutElement key={key} name={readout.name} value={readout.value}/>)}
                     </SelectList>
                     : <div className={'info_text'}>Click&#160; <FontAwesomeIcon icon={faPlus}/> &#160;to add readouts. </div>}
             </div>
