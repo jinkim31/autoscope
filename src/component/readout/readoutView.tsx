@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from "react";
 import ReadoutElement from "./readoutElement";
 import './readout.scss'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../store/store";
 import ReactModal from "react-modal";
 import ReadoutMaker from "../readoutMaker/readoutMaker";
@@ -9,6 +9,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGear} from "@fortawesome/free-solid-svg-icons";
 import {faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
 import SelectList from "../list/selectList";
+import {addPlotTab} from "../../store/layoutSlice";
+import {addPlot} from "../../store/plotSlice";
 
 const modalStyles = {
     content: {
@@ -27,6 +29,8 @@ export default function ReadoutView(){
     const [selectedIndexes, setSelectedIndexes] = useState([])
     const [displayIndex, setDisplayIndex] = useState(0)
     const readouts = useSelector((state: RootState) => state.readout.readouts)
+
+    const dispatch = useDispatch()
 
     function onSelectionChanged(checkedIndexes:number[]) {
         console.log(checkedIndexes)
@@ -76,7 +80,12 @@ export default function ReadoutView(){
                         </Fragment>
                     }
 
-                    <button className={'button_text'} style={{width:'100%'}}>plot</button>
+                    <button onClick={()=>{
+                        const id = Date.now()
+                        dispatch(addPlot(id))
+                        dispatch(addPlotTab(id))
+                    }
+                    } className={'button_text'} style={{width:'100%'}}>plot</button>
                     <button className={'button_text'} style={{width:'100%'}}>log</button>
                     <button className={'button_text'} style={{width:'100%', color:'red'}}>remove</button>
                 </div>

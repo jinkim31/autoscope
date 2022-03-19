@@ -10,6 +10,8 @@ import './connectionView.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faRotate} from "@fortawesome/free-solid-svg-icons";
 import {refreshPlugin} from "../../store/readoutSlice";
+import {addPlotTab} from "../../store/layoutSlice";
+import {addPlot} from "../../store/plotSlice";
 
 Chart.register(...registerables)
 
@@ -20,7 +22,7 @@ export default function ConnectionView() {
 
     useEffect(()=>{
         console.log('refreshing')
-        dispatch(refreshPlugin())
+        dispatch(refreshPorts())
     }, [])
 
     return (

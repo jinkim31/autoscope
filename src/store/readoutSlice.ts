@@ -61,11 +61,8 @@ export const readoutSlice = createSlice({
             }
             state.readouts[index].value = action.payload.value
         },
-        addPlotFromReadout: (state,action)=>{
-
-        },
     }
 })
 
-export const {setSelectedPlugin, refreshPlugin, addReadout, updateReadout} = readoutSlice.actions
+export const {setSelectedPlugin, refreshPlugin, updateReadout, addReadout} = readoutSlice.actions
 export default readoutSlice.reducer

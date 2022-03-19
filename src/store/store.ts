@@ -3,6 +3,7 @@ import commReducer from './commSlice'
 import logReducer, {logSlice} from './logSlice'
 import readoutReducer from "./readoutSlice"
 import layoutReducer from "./layoutSlice"
+import plotReducer from './plotSlice'
 
 export const store = configureStore({
     reducer:{
@@ -10,6 +11,7 @@ export const store = configureStore({
         log: logReducer,
         readout: readoutReducer,
         layout:layoutReducer,
+        plot: plotReducer
     }
 })
 
