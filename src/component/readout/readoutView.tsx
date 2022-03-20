@@ -81,9 +81,9 @@ export default function ReadoutView(){
                     }
 
                     <button onClick={()=>{
-                        const id = Date.now()
-                        dispatch(addPlot(id))
-                        dispatch(addPlotTab(id))
+                        const plotId = Date.now()
+                        dispatch(addPlot({id: plotId, readoutId:displayIndex}))
+                        dispatch(addPlotTab(plotId))
                     }
                     } className={'button_text'} style={{width:'100%'}}>plot</button>
                     <button className={'button_text'} style={{width:'100%'}}>log</button>

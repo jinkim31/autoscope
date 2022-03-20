@@ -9,6 +9,9 @@ import {RootState} from "../../store/store";
 import {log10} from "chart.js/helpers";
 import {refreshPorts} from "../../store/commSlice";
 import {addPlot} from "../../store/plotSlice";
+import 'chartjs-adapter-luxon';
+import 'chartjs-plugin-streaming';
+import {store} from '../../store/store'
 
 interface Props{
     id:number
@@ -34,14 +37,29 @@ export default function Plot(props:Props){
             <div className={'line_container'}>
                 <Line
                     datasetIdKey='id'
-                    data={useSelector((state: RootState) => state.plot.plots[props.id]).data}
-
+                    // data={useSelector((state: RootState) => state.plot.plots[props.id]).data}
+                    data={{
+                        datasets: [
+                            {
+                                label: 'label',
+                                data: []
+                            }
+                        ]
+                    }}
                     options={{
                         scales:{
                             x:{
-                                type: 'time',
-                                time:{
-                                    unit: 'millisecond'
+                                type: 'realtime',
+                                realtime: {
+                                    refresh:100,
+                                    onRefresh: chart => {
+                                        chart.data.datasets.forEach(dataset=>{
+                                            dataset.data.push({
+                                                x: Date.now(),
+                                                y: store.getState().plot.plots[props.id].id
+                                            })
+                                        })
+                                    }
                                 }
                             },
                             y:{

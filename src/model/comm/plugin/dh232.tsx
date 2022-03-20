@@ -2,6 +2,7 @@ import React from "react";
 import Plugin from "./plugin";
 import {useDispatch} from "react-redux";
 import {addReadout, updateReadout} from "../../../store/readoutSlice";
+import {updatePlot} from "../../../store/plotSlice";
 
 interface Abstraction{
     name: string,
@@ -44,7 +45,8 @@ class Dh232 extends Plugin<Abstraction>{
                 <button onClick={()=>{
                     const id = Date.now()
                     this.addReadCallback(abstraction => {
-                        dispatch(updateReadout({id:id, value:abstraction.analogIn[0]}))
+                        dispatch(updateReadout({plotId:id, value:abstraction.analogIn[0]}))
+                        dispatch(updatePlot({readoutId:id, value:abstraction.analogIn[0]}))
                     })
 
                     dispatch(addReadout(id))

@@ -23,24 +23,27 @@ export const plotSlice = createSlice({
     initialState,
     reducers: {
         addPlot: (state, action) => {
+            console.log('action payload:' + action.payload)
             const newPlot: Plot = {
                 name: 'plotname',
                 id: action.payload.id,
                 data: {
                     datasets: [
                         {
-                            data: [
-                                {x: '2020-3-10 23:39:30', y: 1},
-                                {x: '2020-3-10 23:39:31', y: 10},
-                                {x: '2020-3-10 23:39:32', y: 100},
-                                {x: '2020-3-10 23:39:33', y: 10000},
-                                {x: '2020-3-10 23:39:34', y: 100000},
-                                {x: '2020-3-10 23:39:35', y: 1000000},
-                                {x: '2020-3-10 23:39:36', y: 10000000}]
+                            readoutId: action.payload.readoutId,
+                            label: action.payload.readoutId,
+                            data: []
                         }
                     ]
                 },
-                options: {
+                options:{
+                    animation: {
+                        duration: 0 // general animation time
+                    },
+                    hover: {
+                        animationDuration: 0 // duration of animations when hovering an item
+                    },
+                    responsiveAnimationDuration: 0,
                     scales: {
                         x: {
                             type: 'time',
@@ -62,10 +65,21 @@ export const plotSlice = createSlice({
                 }
             }
 
-            state.plots[action.payload] = newPlot
+            state.plots[action.payload.id] = newPlot
             console.log('plot ' + action.payload + ' added.')
         },
+
         updatePlot: (state, action) => {
+            Object.values(state.plots).forEach((plot)=>{
+                console.log('plot:' + plot)
+                plot.data.datasets.forEach((dataset:any)=>{
+                    console.log('datasetId:'+dataset.readoutId + ' readoutId:'+action.payload.readoutId)
+                    if(dataset.readoutId===action.payload.readoutId){
+                        dataset.data.push({x: '2020-3-10 23:39:'+action.payload.value, y: action.payload.value})
+                    }
+                })
+            })
+
             // const index = state.plots.findIndex(
             //     (plot) => plot.id === action.payload.id
             // )

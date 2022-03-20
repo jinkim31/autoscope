@@ -53,7 +53,7 @@ export const readoutSlice = createSlice({
             state.readouts[action.payload]=newReadout
         },
         updateReadout: (state,action)=>{
-            state.readouts[action.payload.id].value = action.payload.value
+            state.readouts[action.payload.plotId].value = action.payload.value
         },
     }
 })
